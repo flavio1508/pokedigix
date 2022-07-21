@@ -21,7 +21,7 @@ public class AtaqueRepositoryTest {
         double forca = 80;
         int  acuracia = 100;
         int pontosDePoder = 32;
-        Long IdEsperado = 1L;
+        Long IdEsperado = 3L;
 
         Ataque  ataque = new Ataque( nomeEsperado , descricao, categoria ,  forca , acuracia , pontosDePoder);
 
