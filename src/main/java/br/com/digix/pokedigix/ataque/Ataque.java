@@ -6,8 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Columns;
+
+import br.com.digix.pokedigix.tipo.Tipo;
 
 @Entity
 public class Ataque {
@@ -25,23 +29,31 @@ public class Ataque {
         private Categoria categoria;
 
     @Column(nullable = false)
-        private double forca;
+        private int forca;
 
     @Column(nullable = false)
         private int acuracia;
 
     @Column(nullable = false, length = 15)
-        private int pontosDePoder;
+        private int pontosDePoder; 
+    @ManyToOne
+        private Tipo tipo;
         
-        public Ataque( String nome, String descricao, Categoria categoria, Double forca, int acuracia, int pontosDePoder) {
+        public Ataque( String nome, String descricao, Categoria categoria, int forca, int acuracia, int pontosDePoder, Tipo tipo) {
             this.nome = nome;
             this.descricao = descricao;
             this.pontosDePoder = pontosDePoder;
             this.forca = forca;
             this.acuracia = acuracia;
             this.categoria = categoria;
+            this.tipo = tipo;
             
+        } 
+
+        public Tipo getTipo(){
+            return this.tipo;
         }
+        
         public Long getId() {
             return this.id;
         }
@@ -70,11 +82,11 @@ public class Ataque {
             this.pontosDePoder = pontosDePoder;
         }
 
-        public Double getForca() {
+        public int getForca() {
             return this.forca;
         }
 
-        public void setForca(Double forca) {
+        public void setForca(int forca) {
             this.forca = forca;
         }
 
