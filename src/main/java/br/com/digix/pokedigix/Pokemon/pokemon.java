@@ -1,10 +1,21 @@
 package br.com.digix.pokedigix.pokemon;
 
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+
+import br.com.digix.pokedigix.ataque.Ataque;
+import br.com.digix.pokedigix.tipo.Tipo;
 
 @Entity
 public class Pokemon { 
@@ -21,8 +32,9 @@ public class Pokemon {
     @Column(nullable = false)
     private double peso;
     
-    @GeneratedValue (strategy = GenerationType.AUTO)
-    private String genero;
+    @Enumerated(EnumType.STRING)
+    @Column (length = 10, nullable = false)
+    private Genero genero;
     
     @GeneratedValue (strategy = GenerationType.AUTO)
     private String treinador; 
@@ -33,9 +45,30 @@ public class Pokemon {
     
     @Column(nullable = false)
     private double felicidade;
+
+    @Column(nullable = false)
+    private int numeroPokedex;
+
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name="tipos", 
+    joinColumns = @JoinColumn(name = "pokemon_id"),
+    inverseJoinColumns = @JoinColumn(name = "tipo_id"))
     
-    public Pokemon(String nome, double altura, double peso, String genero, String treinador, double nivel,
-    double felicidade) {
+    private Collection <Tipo> tipos;
+
+    
+        @ManyToMany(cascade = CascadeType.PERSIST)
+        @JoinTable( 
+            name = "pokemon_ataque",
+            joinColumns = @JoinColumn(name = "pokemon_id"),
+            inverseJoinColumns = @JoinColumn(name = "ataque_id")
+    
+        )
+    private Collection<Ataque> ataques;
+
+    
+    public Pokemon(String nome, double altura, double peso, Genero genero, String treinador, double nivel,
+    double felicidade, int numeroPokedex, Collection<Tipo> tipos, Collection<Ataque> ataques) {
         this.nome = nome;
         this.altura = altura;
         this.peso = peso;
@@ -43,7 +76,14 @@ public class Pokemon {
         this.treinador = treinador;
         this.nivel = nivel;
         this.felicidade = felicidade;
+        this.numeroPokedex = numeroPokedex;
+        this.tipos = tipos;
+        this.ataques = ataques;
     }
+    
+    public Collection<Ataque> getAtaques() {
+            return ataques;
+        }
     public Long getId() {
         return this.id;
     }
@@ -66,10 +106,10 @@ public class Pokemon {
     public void setPeso(double peso) {
         this.peso = peso;
     }
-    public String getGenero() {
+    public Genero getGenero() {
         return this.genero;
     }
-    public void setGenero(String genero) {
+    public void setGenero(Genero genero) {
         this.genero = genero;
     }
     public String getTreinador() {
@@ -91,4 +131,16 @@ public class Pokemon {
         this.felicidade = felicidade;
     }
     
+    public int getNumeroPokedex() {
+        return this.numeroPokedex;
+    }
+    public void setNumeroPokedex(int numeroPokedex) {
+        this.numeroPokedex = numeroPokedex;
+    }
+    public Collection<Tipo> getTipos() {
+        return this.tipos;
+    }
+    public void setTipo(Tipo tipo) {
+        this.tipos = tipos;
+    }
 }
