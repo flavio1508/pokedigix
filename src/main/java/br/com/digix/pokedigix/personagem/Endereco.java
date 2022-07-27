@@ -1,4 +1,4 @@
-package br.com.digix.pokedigix.endereco;
+package br.com.digix.pokedigix.personagem;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

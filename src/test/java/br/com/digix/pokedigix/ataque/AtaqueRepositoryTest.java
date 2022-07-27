@@ -23,61 +23,61 @@ public class AtaqueRepositoryTest {
     @Autowired
     private TipoRepository tipoRepository;
 
-    @Test
-    public void deve_salvar_um_ataque(){
-        String nomeEsperado = "Capitão America";
-        String descricao = "joga o escudo";
-        Categoria categoria = Categoria.FISICO;
-        int forca = 80;
-        int  acuracia = 100;
-        int pontosDePoder = 32;
-        Tipo tipoEsperado = new Tipo("Capitão America");
+    // @Test
+    // public void deve_salvar_um_ataque(){
+    //     String nomeEsperado = "Capitão America";
+    //     String descricao = "joga o escudo";
+    //     Categoria categoria = Categoria.FISICO;
+    //     int forca = 80;
+    //     int  acuracia = 100;
+    //     int pontosDePoder = 32;
+    //     Tipo tipoEsperado = new Tipo("Capitão America");
 
-        Ataque  ataque = new Ataque( nomeEsperado , descricao, categoria ,  forca , acuracia , pontosDePoder, tipoEsperado);
+    //     Ataque  ataque = new Ataque( nomeEsperado , descricao, categoria ,  forca , acuracia , pontosDePoder, tipoEsperado);
 
-        ataqueRepository.save(ataque);
+    //     ataqueRepository.save(ataque);
 
-        assertNotNull( ataque.getId());
+    //     assertNotNull( ataque.getId());
       
-    }
-    @Test 
-    public void deve_salvar_um_tipo_para_um_ataque(){
-        String nomeEsperado = "Capitão America";
-        String descricao = "joga o escudo";
-        Categoria categoria = Categoria.FISICO;
-        int forca = 80;
-        int  acuracia = 100;
-        int pontosDePoder = 32;
-        Tipo tipoEsperado = new Tipo("Capitão America");
+    // }
+    // @Test 
+    // public void deve_salvar_um_tipo_para_um_ataque(){
+    //     String nomeEsperado = "Capitão America";
+    //     String descricao = "joga o escudo";
+    //     Categoria categoria = Categoria.FISICO;
+    //     int forca = 80;
+    //     int  acuracia = 100;
+    //     int pontosDePoder = 32;
+    //     Tipo tipoEsperado = new Tipo("Capitão America");
 
-        Ataque  ataque = new Ataque( nomeEsperado , descricao, categoria ,  forca , acuracia , pontosDePoder, tipoEsperado);
-        tipoRepository.save(tipoEsperado);
-        ataqueRepository.save(ataque);
+    //     Ataque  ataque = new Ataque( nomeEsperado , descricao, categoria ,  forca , acuracia , pontosDePoder, tipoEsperado);
+    //     tipoRepository.save(tipoEsperado);
+    //     ataqueRepository.save(ataque);
          
-        Ataque ataqueRetornado = ataqueRepository.findById(ataque.getId()).get();
+    //     Ataque ataqueRetornado = ataqueRepository.findById(ataque.getId()).get();
 
-        assertEquals(tipoEsperado.getNome(), ataqueRetornado.getTipo().getNome());
-        assertNotNull(ataqueRetornado.getTipo().getId());
-    }
+    //     assertEquals(tipoEsperado.getNome(), ataqueRetornado.getTipo().getNome());
+    //     assertNotNull(ataqueRetornado.getTipo().getId());
+    // }
 
-    @Test 
-    public void deve_buscar_um_ataque_pelo_seu_tipo(){
-        String nomeEsperado = "Capitão America";
-        String descricao = "joga o escudo";
-        Categoria categoria = Categoria.FISICO;
-        int forca = 80;
-        int  acuracia = 100;
-        int pontosDePoder = 32;
-        Tipo tipoEsperado = new Tipo("Capitão America");
+    // @Test 
+    // public void deve_buscar_um_ataque_pelo_seu_tipo(){
+    //     String nomeEsperado = "Capitão America";
+    //     String descricao = "joga o escudo";
+    //     Categoria categoria = Categoria.FISICO;
+    //     int forca = 80;
+    //     int  acuracia = 100;
+    //     int pontosDePoder = 32;
+    //     Tipo tipoEsperado = new Tipo("Capitão America");
 
-        Ataque  ataque = new Ataque( nomeEsperado , descricao, categoria ,  forca , acuracia , pontosDePoder, tipoEsperado);
-        tipoRepository.save(tipoEsperado);
-        ataqueRepository.save(ataque);
+    //     Ataque  ataque = new Ataque( nomeEsperado , descricao, categoria ,  forca , acuracia , pontosDePoder, tipoEsperado);
+    //     tipoRepository.save(tipoEsperado);
+    //     ataqueRepository.save(ataque);
          
-        Collection<Ataque> ataqueRetornado = ataqueRepository.findByCategoria(categoria);
+    //     Collection<Ataque> ataqueRetornado = ataqueRepository.findByCategoria(categoria);
 
-        assertTrue(ataqueRetornado.contains(ataque));               
-    }
+    //     assertTrue(ataqueRetornado.contains(ataque));               
+    // }
 
     
 }
