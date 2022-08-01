@@ -42,7 +42,18 @@ public class Ataque {
     @ManyToMany(mappedBy =  "ataques")
     private Collection<Pokemon>pokemons;    
         
-        public Ataque( String nome, String descricao, Categoria categoria, int forca, int acuracia, int pontosDePoder, Tipo tipo) {
+        public Ataque( String nome, 
+        String descricao, 
+        Categoria categoria, 
+        int forca, 
+        int acuracia, 
+        int pontosDePoder, 
+        Tipo tipo) throws Exception {
+            
+            validarAcuracia(acuracia);
+            validarForca(categoria, forca);
+            validarTipo(categoria, tipo);
+
             this.nome = nome;
             this.descricao = descricao;
             this.pontosDePoder = pontosDePoder;
@@ -51,7 +62,33 @@ public class Ataque {
             this.categoria = categoria;
             this.tipo = tipo;
             
+        }
+
+        private void validarTipo(Categoria categoria, Tipo tipo) throws TipoInvalidoParaCategoriaException {
+              if((categoria.equals(Categoria.FISICO) && tipo == null  ) || (categoria.equals(Categoria.ESPECIAL) && tipo == null) ) 
+               throw new TipoInvalidoParaCategoriaException(tipo);
+            }  
+
+        private void validarAcuracia(int acuracia) throws AcuraciaInvalidaException {
+            if(acuracia < 0 || acuracia > 100){
+                throw new AcuraciaInvalidaException();
+            }
         } 
+        private void validarForca(Categoria categoria, int forca) throws ForcaInvalidaParaCategoriaExceptio {
+            if((categoria.equals(Categoria.FISICO) && forca <= 0) || (categoria.equals(Categoria.ESPECIAL) && forca <= 0)){
+                throw new ForcaInvalidaParaCategoriaExceptio(categoria);
+            }
+        }
+
+        public Ataque(String nomeEsperado, String descricao, int acuracia, int pontosDePoder) throws AcuraciaInvalidaException, ForcaInvalidaParaCategoriaExceptio {
+             validarAcuracia(acuracia); 
+             this.acuracia = acuracia;
+             this.pontosDePoder = pontosDePoder;
+             this.nome = nomeEsperado;
+             this.descricao = descricao;
+             this.categoria = Categoria.EFEITO;
+        }
+
 
         public Tipo getTipo(){
             return this.tipo;
