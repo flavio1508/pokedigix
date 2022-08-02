@@ -14,7 +14,7 @@ public class PokemonBuilder {
     private Genero genero;
     private String treinador;
     private int nivel;
-    private int felicidade;
+    private double felicidade;
     private int numeroPokedex;
     private Collection<Tipo> tipos;
 
@@ -38,7 +38,7 @@ public class PokemonBuilder {
         
     }
      
-    public Pokemon construir(){
+    public Pokemon construir() throws PokemonInvalidoParaCategoriaException, FelicidadeInvalidaException{
         return new Pokemon(nome, altura, peso, genero, treinador, nivel, felicidade, numeroPokedex, tipos, ataques);
     }
 
@@ -47,4 +47,15 @@ public class PokemonBuilder {
         return this;
     }
 
+    public PokemonBuilder comNivel(int nivelMinimo) {
+        this.nivel = nivelMinimo;
+        return this;
+    }
+
+    public PokemonBuilder comFelicidade(double felicidade) {
+        this.felicidade = felicidade;
+        return this;
+    }
+
+   
 } 

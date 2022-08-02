@@ -135,6 +135,6 @@ public class AtaqueTest {
             new AtaqueBuilder().comTipo(tipo).comCategoria(categoria).construir();
         });
 
-    }
+    }  
 
 }

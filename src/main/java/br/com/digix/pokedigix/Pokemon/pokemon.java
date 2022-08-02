@@ -40,7 +40,7 @@ public class Pokemon {
     private String treinador; 
     
     @Column(nullable = false)
-    private double nivel;
+    private int nivel;
     
     
     @Column(nullable = false)
@@ -67,8 +67,11 @@ public class Pokemon {
     private Collection<Ataque> ataques;
 
     
-    public Pokemon(String nome, double altura, double peso, Genero genero, String treinador, double nivel,
-    double felicidade, int numeroPokedex, Collection<Tipo> tipos, Collection<Ataque> ataques) {
+    public Pokemon(String nome, double altura, double peso, Genero genero, String treinador, int nivel,
+    double felicidade, int numeroPokedex, Collection<Tipo> tipos, Collection<Ataque> ataques) throws PokemonInvalidoParaCategoriaException, FelicidadeInvalidaException {
+        
+        validarnivel(nivel);
+        validarfelicidade(felicidade);
         this.nome = nome;
         this.altura = altura;
         this.peso = peso;
@@ -81,6 +84,19 @@ public class Pokemon {
         this.ataques = ataques;
     }
     
+    private void validarfelicidade(double felicidade) throws FelicidadeInvalidaException {
+        if(felicidade < 0 || felicidade > 100){
+            throw new FelicidadeInvalidaException();
+
+        }
+    }
+
+    private void validarnivel(int nivel) throws PokemonInvalidoParaCategoriaException {
+        if(nivel < 1 || nivel > 100){
+            throw new PokemonInvalidoParaCategoriaException();
+        }
+    }
+
     public Collection<Ataque> getAtaques() {
             return ataques;
         }
@@ -118,13 +134,13 @@ public class Pokemon {
     public void setTreinador(String treinador) {
         this.treinador = treinador;
     }
-    public Double getNivel() {
+    public int getNivel() {
         return this.nivel;
     }
-    public void setNivel(double nivel) {
+    public void setNivel(int nivel) {
         this.nivel = nivel;
     }
-    public Double getFelicidade() {
+    public double getFelicidade() {
         return this.felicidade;
     }
     public void setFelicidade(double felicidade) {
