@@ -10,33 +10,47 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-// @DataJpaTest
-// public class TipoRepositoryTest { 
+ @DataJpaTest
+public class TipoRepositoryTest { 
 
-//     @Autowired
-//     private TipoRepository tipoRepository;
+    @Autowired
+     private TipoRepository tipoRepository;
 
 
-//     @Test
-//     public void deve_salvar_um_tipo(){
-//         String nomeEsperado = "Fantasma";
-//         Tipo tipo =  new Tipo(nomeEsperado);
+    @Test
+    public void deve_salvar_um_tipo(){
+        String nomeEsperado = "Fantasma";
+        Tipo tipo =  new Tipo(nomeEsperado);
 
-//         tipoRepository.save(tipo);
+        tipoRepository.save(tipo);
 
-//         assertNotNull( tipo.getId());
-//     }
+         assertNotNull( tipo.getId());
+     }
 
-//     @Test
-//     public void deve_buscar_um_tipo_pelo_nome(){
-//         String nome = "Eletrico";
-//         Tipo tipo = new Tipo(nome);
-//         tipoRepository.save(tipo);
+     @Test
+     public void deve_buscar_um_tipo_pelo_nome(){
+         String nome = "Eletrico";
+        Tipo tipo = new Tipo(nome);
+         tipoRepository.save(tipo);
 
-//        Collection<Tipo>tiposRetornados =  tipoRepository.findByNome(nome);
+        Collection<Tipo>tiposRetornados =  tipoRepository.findByNomeContaining(nome);
 
-//        assertTrue(tiposRetornados.contains(tipo));
-//     }
+        assertTrue(tiposRetornados.contains(tipo));
+     }
+
+     @Test
+     public void deve_poder_remover_pelo_nome(){
+        String fada = "Fada";
+        String fantasma = "Fantasma";
+        tipoRepository.save(new Tipo(fada));
+        tipoRepository.save(new Tipo(fantasma));
+        String termo = "Fa";
+        Long quantidadeEsperada = 2l;
+
+        Long quantidadeRemovida = tipoRepository.deleteByNomeContaining(termo);
+
+        assertEquals(quantidadeEsperada, quantidadeRemovida);
+     }
 
     
-// }
+ }
