@@ -40,7 +40,9 @@ public class Ataque {
         private Tipo tipo;
 
     @ManyToMany(mappedBy =  "ataques")
-    private Collection<Pokemon>pokemons;    
+    private Collection<Pokemon>pokemons;  
+    
+    protected Ataque(){}
         
         public Ataque( String nome, 
         String descricao, 
@@ -89,6 +91,9 @@ public class Ataque {
              this.categoria = Categoria.EFEITO;
         }
 
+
+        public Ataque(String nome2) {
+        }
 
         public Tipo getTipo(){
             return this.tipo;
