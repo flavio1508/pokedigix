@@ -30,6 +30,18 @@ public class AtaqueController {
         return ResponseEntity.ok( new AtaqueResponseDTO(ataque.getId(),ataque.getNome(), ataque.getDescricao(),ataque.getCategoria(), ataque.getForca(),ataque.getAcuracia(), ataque.getPontosDePoder(), tipo));
             
     }
+
+    @Operation(summary = "Criar um  ataque usando o Tipo")
+    @ApiResponse(responseCode = "201", description = "Ataque criado usando o Tipo")
+    @PostMapping(consumes = {"application/json"})
+    public ResponseEntity<AtaqueResponseDTO> criarAtaque(@RequestBody AtaqueRequestDTO novoAtaque) throws Exception{
+        Tipo tipo = ataqueRepository.findById(novoAtaque.getTipoId()).get();
+        Ataque ataque = new Ataque(novoAtaque.getNome(), novoAtaque.getForca(), novoAtaque.getAcuracia(), novoAtaque.getPontosDePoder(), novoAtaque.getDescricao(), novoAtaque.getCategoria(), tipo);
+        ataqueRepository.save(ataque);
+
+        TipoResponseDTO tipoResponseDTO = new TipoResponseDTO(tipo.getId(), tipo.getNome());
+        return ResponseEntity.status(HttpStatus.CREATED).body( new AtaqueResponseDTO(ataque.getId(),ataque.getNome(), ataque.getDescricao(),ataque.getCategoria(), ataque.getForca(),ataque.getAcuracia(), ataque.getPontosDePoder(), tipo));
+    }
     
    
 }
